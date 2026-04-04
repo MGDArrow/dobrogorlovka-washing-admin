@@ -1,0 +1,31 @@
+{
+  "name": "washing-admin",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "prismamigrate": "npx prisma migrate dev"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.6.0",
+    "nuxt": "^4.4.2",
+    "pg": "^8.20.0",
+    "vue": "^3.5.31",
+    "vue-router": "^5.0.4"
+  },
+  "devDependencies": {
+    "@mgdarrow/prettier-config": "^1.1.2",
+    "@prisma/client": "^7.6.0",
+    "@types/node": "^25.5.2",
+    "@types/pg": "^8.20.0",
+    "dotenv": "^17.4.0",
+    "prettier": "^3.8.1",
+    "prisma": "^7.6.0",
+    "sass-embedded": "^1.98.0"
+  },
+  "prettier": "@mgdarrow/prettier-config"
+}
