@@ -4,7 +4,11 @@
       <p>
         {{ label }}
       </p>
-      <input type="text" v-model="modelValue" :placeholder="placeholder" />
+      <input
+        :type="typeof modelValue === 'string' ? 'text' : 'number'"
+        v-model="modelValue"
+        :placeholder="placeholder"
+      />
     </label>
   </div>
 </template>
@@ -15,7 +19,7 @@
     placeholder?: string;
   }
 
-  const modelValue = defineModel<string>({ required: true });
+  const modelValue = defineModel<string | number>({ required: true });
 
   const props = defineProps<Props>();
 </script>

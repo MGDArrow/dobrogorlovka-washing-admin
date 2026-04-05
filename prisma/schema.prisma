@@ -25,12 +25,40 @@ model Holiday {
 }
 
 model WashType {
-  id          Int      @id @default(autoincrement())
-  name        String   @unique
-  description String
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             Int             @id @default(autoincrement())
+  name           String          @unique
+  description    String
+  isActive       Boolean         @default(true)
+  temperature    Int
+  dryingSpin     Int
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  orderWashTypes OrderWashType[]
 
   @@map("wash_types")
+}
+
+model Order {
+  id             Int      @id @default(autoincrement())
+  orderNumber    String   @unique @map("order_number") // 8-значный уникальный номер заказа
+  rulesConfirmed Boolean  @default(false) @map("rules_confirmed")
+  customerName   String   @map("customer_name")
+  customerPhone  String   @map("customer_phone")
+  scheduledAt    DateTime @map("scheduled_at") // дата и время стирки
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  washTypes OrderWashType[] // связь многие-ко-многим через junction-таблицу
+
+  @@map("orders")
+}
+
+model OrderWashType {
+  orderId    Int      @map("order_id")
+  washTypeId Int      @map("wash_type_id")
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  washType   WashType @relation(fields: [washTypeId], references: [id])
+
+  @@id([orderId, washTypeId])
+  @@map("order_wash_types")
 }
