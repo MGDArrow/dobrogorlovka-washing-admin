@@ -48,7 +48,6 @@
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
-    justify-content: center;
     z-index: 1000;
   }
 
@@ -62,15 +61,14 @@
     min-width: 300px;
     max-height: 80vh;
     overflow-y: auto;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    @media (width <= 768px) {
+      // min-width: unset;
+      max-width: 100vw;
+    }
   }
 
   .modal-header {
     margin-bottom: 1rem;
-  }
-
-  .modal-body {
-    // Содержимое
   }
 
   .modal-footer {
