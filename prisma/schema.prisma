@@ -44,6 +44,7 @@ model Order {
   rulesConfirmed Boolean  @default(false) @map("rules_confirmed")
   customerName   String   @map("customer_name")
   customerPhone  String   @map("customer_phone")
+  comment        String?  @map("comment")
   scheduledAt    DateTime @map("scheduled_at") // дата и время стирки
   createdAt      DateTime @default(now()) @map("created_at")
   updatedAt      DateTime @updatedAt @map("updated_at")

@@ -40,6 +40,7 @@ export type OrderMinAggregateOutputType = {
   rulesConfirmed: boolean | null
   customerName: string | null
   customerPhone: string | null
+  comment: string | null
   scheduledAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -51,6 +52,7 @@ export type OrderMaxAggregateOutputType = {
   rulesConfirmed: boolean | null
   customerName: string | null
   customerPhone: string | null
+  comment: string | null
   scheduledAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -62,6 +64,7 @@ export type OrderCountAggregateOutputType = {
   rulesConfirmed: number
   customerName: number
   customerPhone: number
+  comment: number
   scheduledAt: number
   createdAt: number
   updatedAt: number
@@ -83,6 +86,7 @@ export type OrderMinAggregateInputType = {
   rulesConfirmed?: true
   customerName?: true
   customerPhone?: true
+  comment?: true
   scheduledAt?: true
   createdAt?: true
   updatedAt?: true
@@ -94,6 +98,7 @@ export type OrderMaxAggregateInputType = {
   rulesConfirmed?: true
   customerName?: true
   customerPhone?: true
+  comment?: true
   scheduledAt?: true
   createdAt?: true
   updatedAt?: true
@@ -105,6 +110,7 @@ export type OrderCountAggregateInputType = {
   rulesConfirmed?: true
   customerName?: true
   customerPhone?: true
+  comment?: true
   scheduledAt?: true
   createdAt?: true
   updatedAt?: true
@@ -203,6 +209,7 @@ export type OrderGroupByOutputType = {
   rulesConfirmed: boolean
   customerName: string
   customerPhone: string
+  comment: string | null
   scheduledAt: Date
   createdAt: Date
   updatedAt: Date
@@ -237,6 +244,7 @@ export type OrderWhereInput = {
   rulesConfirmed?: Prisma.BoolFilter<"Order"> | boolean
   customerName?: Prisma.StringFilter<"Order"> | string
   customerPhone?: Prisma.StringFilter<"Order"> | string
+  comment?: Prisma.StringNullableFilter<"Order"> | string | null
   scheduledAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -249,6 +257,7 @@ export type OrderOrderByWithRelationInput = {
   rulesConfirmed?: Prisma.SortOrder
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
+  comment?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -264,6 +273,7 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   rulesConfirmed?: Prisma.BoolFilter<"Order"> | boolean
   customerName?: Prisma.StringFilter<"Order"> | string
   customerPhone?: Prisma.StringFilter<"Order"> | string
+  comment?: Prisma.StringNullableFilter<"Order"> | string | null
   scheduledAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Order"> | Date | string
@@ -276,6 +286,7 @@ export type OrderOrderByWithAggregationInput = {
   rulesConfirmed?: Prisma.SortOrder
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
+  comment?: Prisma.SortOrderInput | Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -295,6 +306,7 @@ export type OrderScalarWhereWithAggregatesInput = {
   rulesConfirmed?: Prisma.BoolWithAggregatesFilter<"Order"> | boolean
   customerName?: Prisma.StringWithAggregatesFilter<"Order"> | string
   customerPhone?: Prisma.StringWithAggregatesFilter<"Order"> | string
+  comment?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   scheduledAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Order"> | Date | string
@@ -305,6 +317,7 @@ export type OrderCreateInput = {
   rulesConfirmed?: boolean
   customerName: string
   customerPhone: string
+  comment?: string | null
   scheduledAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -317,6 +330,7 @@ export type OrderUncheckedCreateInput = {
   rulesConfirmed?: boolean
   customerName: string
   customerPhone: string
+  comment?: string | null
   scheduledAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -328,6 +342,7 @@ export type OrderUpdateInput = {
   rulesConfirmed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   customerName?: Prisma.StringFieldUpdateOperationsInput | string
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -340,6 +355,7 @@ export type OrderUncheckedUpdateInput = {
   rulesConfirmed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   customerName?: Prisma.StringFieldUpdateOperationsInput | string
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -352,6 +368,7 @@ export type OrderCreateManyInput = {
   rulesConfirmed?: boolean
   customerName: string
   customerPhone: string
+  comment?: string | null
   scheduledAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -362,6 +379,7 @@ export type OrderUpdateManyMutationInput = {
   rulesConfirmed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   customerName?: Prisma.StringFieldUpdateOperationsInput | string
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -373,6 +391,7 @@ export type OrderUncheckedUpdateManyInput = {
   rulesConfirmed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   customerName?: Prisma.StringFieldUpdateOperationsInput | string
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -384,6 +403,7 @@ export type OrderCountOrderByAggregateInput = {
   rulesConfirmed?: Prisma.SortOrder
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -399,6 +419,7 @@ export type OrderMaxOrderByAggregateInput = {
   rulesConfirmed?: Prisma.SortOrder
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -410,6 +431,7 @@ export type OrderMinOrderByAggregateInput = {
   rulesConfirmed?: Prisma.SortOrder
   customerName?: Prisma.SortOrder
   customerPhone?: Prisma.SortOrder
+  comment?: Prisma.SortOrder
   scheduledAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -422,6 +444,10 @@ export type OrderSumOrderByAggregateInput = {
 export type OrderScalarRelationFilter = {
   is?: Prisma.OrderWhereInput
   isNot?: Prisma.OrderWhereInput
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
 }
 
 export type OrderCreateNestedOneWithoutWashTypesInput = {
@@ -443,6 +469,7 @@ export type OrderCreateWithoutWashTypesInput = {
   rulesConfirmed?: boolean
   customerName: string
   customerPhone: string
+  comment?: string | null
   scheduledAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -454,6 +481,7 @@ export type OrderUncheckedCreateWithoutWashTypesInput = {
   rulesConfirmed?: boolean
   customerName: string
   customerPhone: string
+  comment?: string | null
   scheduledAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -480,6 +508,7 @@ export type OrderUpdateWithoutWashTypesInput = {
   rulesConfirmed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   customerName?: Prisma.StringFieldUpdateOperationsInput | string
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -491,6 +520,7 @@ export type OrderUncheckedUpdateWithoutWashTypesInput = {
   rulesConfirmed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   customerName?: Prisma.StringFieldUpdateOperationsInput | string
   customerPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   scheduledAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -533,6 +563,7 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   rulesConfirmed?: boolean
   customerName?: boolean
   customerPhone?: boolean
+  comment?: boolean
   scheduledAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -546,6 +577,7 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   rulesConfirmed?: boolean
   customerName?: boolean
   customerPhone?: boolean
+  comment?: boolean
   scheduledAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -557,6 +589,7 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   rulesConfirmed?: boolean
   customerName?: boolean
   customerPhone?: boolean
+  comment?: boolean
   scheduledAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -568,12 +601,13 @@ export type OrderSelectScalar = {
   rulesConfirmed?: boolean
   customerName?: boolean
   customerPhone?: boolean
+  comment?: boolean
   scheduledAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "rulesConfirmed" | "customerName" | "customerPhone" | "scheduledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderNumber" | "rulesConfirmed" | "customerName" | "customerPhone" | "comment" | "scheduledAt" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   washTypes?: boolean | Prisma.Order$washTypesArgs<ExtArgs>
   _count?: boolean | Prisma.OrderCountOutputTypeDefaultArgs<ExtArgs>
@@ -592,6 +626,7 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     rulesConfirmed: boolean
     customerName: string
     customerPhone: string
+    comment: string | null
     scheduledAt: Date
     createdAt: Date
     updatedAt: Date
@@ -1024,6 +1059,7 @@ export interface OrderFieldRefs {
   readonly rulesConfirmed: Prisma.FieldRef<"Order", 'Boolean'>
   readonly customerName: Prisma.FieldRef<"Order", 'String'>
   readonly customerPhone: Prisma.FieldRef<"Order", 'String'>
+  readonly comment: Prisma.FieldRef<"Order", 'String'>
   readonly scheduledAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Order", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Order", 'DateTime'>
