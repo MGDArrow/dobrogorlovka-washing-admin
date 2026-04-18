@@ -1,6 +1,6 @@
 <template>
   <div class="timetable">
-    <h4>Текущее расписание</h4>
+    <h3>Текущее расписание</h3>
     <div class="timetable__current">
       <template v-if="currentSchedule">
         <h5>
@@ -13,14 +13,17 @@
       </template>
       <template v-else-if="!loadingCurrent">
         Расписание ещё не задано. Создайте первое.
+        <UiButton :color="'var(--color-blue)'" @click="openUpcomingModal">
+          Будущие изменения
+        </UiButton>
       </template>
       <template v-else>Загрузка...</template>
     </div>
 
-    <h4>Изменить расписание</h4>
+    <h3>Изменить расписание</h3>
     <SettingsTimetableForm @loadCurrent="loadCurrentInfo()" />
 
-    <h4>Выходные</h4>
+    <h3>Выходные</h3>
     <SettingsHolidays />
 
     <!-- Модальное окно со списком будущих расписаний -->
@@ -146,11 +149,11 @@
   .timetable {
     width: 100%;
     &__current {
+      margin: 0.5em 0;
       background: var(--color-white);
       border: 4px solid var(--color-black);
       border-radius: var(--border-radius);
       padding: 1em;
-      margin-bottom: 1.5em;
     }
   }
 </style>

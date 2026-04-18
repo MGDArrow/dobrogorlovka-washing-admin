@@ -1,16 +1,35 @@
 <template>
   <div class="timatable__info">
-    <div v-for="(times, day) in data" :key="day">
-      <span>{{ day }}:</span>
-      <span>{{ times.join(', ') }}</span>
+    <div v-for="date in sortedDates" :key="date[0]">
+      <span>{{ date[0] }}:</span>
+      <span>{{ date[1].join(', ') }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-  defineProps<{
+  const props = defineProps<{
     data: Record<string, string[]>;
   }>();
+
+  const weekdays = [
+    'Понедельник',
+    'Вторник',
+    'Среда',
+    'Четверг',
+    'Пятница',
+    'Суббота',
+    'Воскресенье',
+  ];
+
+  const sortedDates = computed(() => {
+    const arrayDates = Object.entries(props.data);
+    return arrayDates.sort(
+      (a, b) =>
+        weekdays.findIndex((day) => day === a[0]) -
+        weekdays.findIndex((day) => day === b[0]),
+    );
+  });
 </script>
 
 <style scoped lang="scss">

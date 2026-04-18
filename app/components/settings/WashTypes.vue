@@ -241,6 +241,10 @@
       display: flex;
       gap: 1em;
       align-items: center;
+      @media (width <= 768px) {
+        gap: 0.2em;
+        flex-direction: column;
+      }
     }
 
     &__list {
@@ -255,6 +259,10 @@
       align-items: center;
       padding: 0.5em;
       gap: 1em;
+      @media (width <= 768px) {
+        flex-direction: column;
+        gap: 0.2em;
+      }
     }
 
     &__infoplate {
@@ -262,6 +270,9 @@
       flex-direction: column;
       gap: 1em;
       flex: 1;
+      @media (width <= 768px) {
+        gap: 0.2em;
+      }
     }
 
     &__info {
@@ -269,6 +280,9 @@
       gap: 1em;
       align-items: baseline;
       flex-wrap: wrap;
+      @media (width <= 768px) {
+        gap: 0.2em;
+      }
     }
 
     &__status {
@@ -288,6 +302,10 @@
       gap: 0.5em;
       align-items: center;
       flex-wrap: wrap;
+      @media (width <= 768px) {
+        gap: 0.2em;
+        width: 100%;
+      }
     }
   }
 </style>

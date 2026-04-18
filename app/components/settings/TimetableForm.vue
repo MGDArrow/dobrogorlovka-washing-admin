@@ -58,8 +58,7 @@
     return formatDate(today);
   });
 
-  // Форматирование для поля <input type="date">
-  function formatDate(date: Date | string): string {
+  function formatDate(date: Date): string {
     const d = new Date(date);
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -123,7 +122,7 @@
       border: 4px solid var(--color-black);
       padding: 1em;
       border-radius: var(--border-radius);
-      margin-bottom: 1.5em;
+      margin: 0.5em 0;
     }
 
     &__days {

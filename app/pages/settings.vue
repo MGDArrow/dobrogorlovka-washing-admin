@@ -1,9 +1,8 @@
 <template>
   <section class="settings">
-    <h2>Настройки</h2>
-    <h3>Расписание</h3>
+    <h2>Расписание</h2>
     <SettingsTimetable />
-    <h3>Типы стирок</h3>
+    <h2>Типы стирок</h2>
     <SettingsWashTypes />
   </section>
 </template>
@@ -12,6 +11,9 @@
 
 <style scoped lang="scss">
   .settings {
-    // width: 100%;
+    @media (width <= 768px) {
+      width: 95vw;
+      margin: 0 auto;
+    }
   }
 </style>
