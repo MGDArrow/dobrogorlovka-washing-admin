@@ -1,8 +1,8 @@
 import dayjs, { Dayjs } from 'dayjs';
 import 'dayjs/locale/ru';
-import weekday from 'dayjs/plugin/weekday';
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
-import isBetween from 'dayjs/plugin/isBetween';
+import weekday from 'dayjs/plugin/weekday.js';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js';
+import isBetween from 'dayjs/plugin/isBetween.js';
 dayjs.locale('ru');
 dayjs.extend(weekday);
 dayjs.extend(isSameOrAfter);
