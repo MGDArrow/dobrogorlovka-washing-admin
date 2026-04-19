@@ -6,7 +6,7 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Управление стирками — АНО "ДоброГорловка"',
+      title: 'Стирка Добра',
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1, maximum-scale=2',
       htmlAttrs: {
@@ -22,6 +22,7 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#a6c729' },
         { name: 'author', content: 'MGDArrow' },
         { name: 'creator', content: 'MGDArrow' },
+        { name: 'robots', content: 'noindex' },
         {
           name: 'apple-mobile-web-app-title',
           content: 'Упрвление стирками — Доброгорловка',
