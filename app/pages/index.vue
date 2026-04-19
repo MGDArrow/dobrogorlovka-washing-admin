@@ -20,6 +20,10 @@
 </template>
 
 <script setup lang="ts">
+  definePageMeta({
+    middleware: 'auth',
+  });
+  
   import type { Dayjs } from 'dayjs';
 
   const dateForCalendar: Ref<Dayjs> = ref(initDaysj(new Date()));

@@ -3,7 +3,9 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['./assets/reset.css', './assets/variables.css', './assets/styles.css'],
-
+  runtimeConfig: {
+    authCookieSecret: process.env.NUXT_AUTH_COOKIE_SECRET,
+  },
   app: {
     head: {
       title: 'Стирка Добра',
