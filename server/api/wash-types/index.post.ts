@@ -1,6 +1,7 @@
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-  const { name, description, isActive, temperature, dryingSpin } = body;
+  const { name, description, isActive, temperature, dryingSpin, machineCount } =
+    body;
 
   if (!name?.trim()) {
     throw createError({ statusCode: 400, message: 'Название обязательно' });
@@ -14,6 +15,7 @@ export default defineEventHandler(async (event) => {
         isActive: isActive ?? true,
         temperature: temperature ?? null,
         dryingSpin: dryingSpin ?? null,
+        machineCount: machineCount ?? null,
       },
     });
     return newWashType;

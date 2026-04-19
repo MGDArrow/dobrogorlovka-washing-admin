@@ -30,12 +30,14 @@ export type WashTypeAvgAggregateOutputType = {
   id: number | null
   temperature: number | null
   dryingSpin: number | null
+  machineCount: number | null
 }
 
 export type WashTypeSumAggregateOutputType = {
   id: number | null
   temperature: number | null
   dryingSpin: number | null
+  machineCount: number | null
 }
 
 export type WashTypeMinAggregateOutputType = {
@@ -45,6 +47,7 @@ export type WashTypeMinAggregateOutputType = {
   isActive: boolean | null
   temperature: number | null
   dryingSpin: number | null
+  machineCount: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -56,6 +59,7 @@ export type WashTypeMaxAggregateOutputType = {
   isActive: boolean | null
   temperature: number | null
   dryingSpin: number | null
+  machineCount: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -67,6 +71,7 @@ export type WashTypeCountAggregateOutputType = {
   isActive: number
   temperature: number
   dryingSpin: number
+  machineCount: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -77,12 +82,14 @@ export type WashTypeAvgAggregateInputType = {
   id?: true
   temperature?: true
   dryingSpin?: true
+  machineCount?: true
 }
 
 export type WashTypeSumAggregateInputType = {
   id?: true
   temperature?: true
   dryingSpin?: true
+  machineCount?: true
 }
 
 export type WashTypeMinAggregateInputType = {
@@ -92,6 +99,7 @@ export type WashTypeMinAggregateInputType = {
   isActive?: true
   temperature?: true
   dryingSpin?: true
+  machineCount?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -103,6 +111,7 @@ export type WashTypeMaxAggregateInputType = {
   isActive?: true
   temperature?: true
   dryingSpin?: true
+  machineCount?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -114,6 +123,7 @@ export type WashTypeCountAggregateInputType = {
   isActive?: true
   temperature?: true
   dryingSpin?: true
+  machineCount?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -212,6 +222,7 @@ export type WashTypeGroupByOutputType = {
   isActive: boolean
   temperature: number
   dryingSpin: number
+  machineCount: number
   createdAt: Date
   updatedAt: Date
   _count: WashTypeCountAggregateOutputType | null
@@ -246,6 +257,7 @@ export type WashTypeWhereInput = {
   isActive?: Prisma.BoolFilter<"WashType"> | boolean
   temperature?: Prisma.IntFilter<"WashType"> | number
   dryingSpin?: Prisma.IntFilter<"WashType"> | number
+  machineCount?: Prisma.IntFilter<"WashType"> | number
   createdAt?: Prisma.DateTimeFilter<"WashType"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WashType"> | Date | string
   orderWashTypes?: Prisma.OrderWashTypeListRelationFilter
@@ -258,6 +270,7 @@ export type WashTypeOrderByWithRelationInput = {
   isActive?: Prisma.SortOrder
   temperature?: Prisma.SortOrder
   dryingSpin?: Prisma.SortOrder
+  machineCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   orderWashTypes?: Prisma.OrderWashTypeOrderByRelationAggregateInput
@@ -273,6 +286,7 @@ export type WashTypeWhereUniqueInput = Prisma.AtLeast<{
   isActive?: Prisma.BoolFilter<"WashType"> | boolean
   temperature?: Prisma.IntFilter<"WashType"> | number
   dryingSpin?: Prisma.IntFilter<"WashType"> | number
+  machineCount?: Prisma.IntFilter<"WashType"> | number
   createdAt?: Prisma.DateTimeFilter<"WashType"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"WashType"> | Date | string
   orderWashTypes?: Prisma.OrderWashTypeListRelationFilter
@@ -285,6 +299,7 @@ export type WashTypeOrderByWithAggregationInput = {
   isActive?: Prisma.SortOrder
   temperature?: Prisma.SortOrder
   dryingSpin?: Prisma.SortOrder
+  machineCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.WashTypeCountOrderByAggregateInput
@@ -304,6 +319,7 @@ export type WashTypeScalarWhereWithAggregatesInput = {
   isActive?: Prisma.BoolWithAggregatesFilter<"WashType"> | boolean
   temperature?: Prisma.IntWithAggregatesFilter<"WashType"> | number
   dryingSpin?: Prisma.IntWithAggregatesFilter<"WashType"> | number
+  machineCount?: Prisma.IntWithAggregatesFilter<"WashType"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"WashType"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"WashType"> | Date | string
 }
@@ -314,6 +330,7 @@ export type WashTypeCreateInput = {
   isActive?: boolean
   temperature: number
   dryingSpin: number
+  machineCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   orderWashTypes?: Prisma.OrderWashTypeCreateNestedManyWithoutWashTypeInput
@@ -326,6 +343,7 @@ export type WashTypeUncheckedCreateInput = {
   isActive?: boolean
   temperature: number
   dryingSpin: number
+  machineCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   orderWashTypes?: Prisma.OrderWashTypeUncheckedCreateNestedManyWithoutWashTypeInput
@@ -337,6 +355,7 @@ export type WashTypeUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temperature?: Prisma.IntFieldUpdateOperationsInput | number
   dryingSpin?: Prisma.IntFieldUpdateOperationsInput | number
+  machineCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderWashTypes?: Prisma.OrderWashTypeUpdateManyWithoutWashTypeNestedInput
@@ -349,6 +368,7 @@ export type WashTypeUncheckedUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temperature?: Prisma.IntFieldUpdateOperationsInput | number
   dryingSpin?: Prisma.IntFieldUpdateOperationsInput | number
+  machineCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderWashTypes?: Prisma.OrderWashTypeUncheckedUpdateManyWithoutWashTypeNestedInput
@@ -361,6 +381,7 @@ export type WashTypeCreateManyInput = {
   isActive?: boolean
   temperature: number
   dryingSpin: number
+  machineCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -371,6 +392,7 @@ export type WashTypeUpdateManyMutationInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temperature?: Prisma.IntFieldUpdateOperationsInput | number
   dryingSpin?: Prisma.IntFieldUpdateOperationsInput | number
+  machineCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -382,6 +404,7 @@ export type WashTypeUncheckedUpdateManyInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temperature?: Prisma.IntFieldUpdateOperationsInput | number
   dryingSpin?: Prisma.IntFieldUpdateOperationsInput | number
+  machineCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -393,6 +416,7 @@ export type WashTypeCountOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   temperature?: Prisma.SortOrder
   dryingSpin?: Prisma.SortOrder
+  machineCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -401,6 +425,7 @@ export type WashTypeAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   temperature?: Prisma.SortOrder
   dryingSpin?: Prisma.SortOrder
+  machineCount?: Prisma.SortOrder
 }
 
 export type WashTypeMaxOrderByAggregateInput = {
@@ -410,6 +435,7 @@ export type WashTypeMaxOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   temperature?: Prisma.SortOrder
   dryingSpin?: Prisma.SortOrder
+  machineCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -421,6 +447,7 @@ export type WashTypeMinOrderByAggregateInput = {
   isActive?: Prisma.SortOrder
   temperature?: Prisma.SortOrder
   dryingSpin?: Prisma.SortOrder
+  machineCount?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -429,6 +456,7 @@ export type WashTypeSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   temperature?: Prisma.SortOrder
   dryingSpin?: Prisma.SortOrder
+  machineCount?: Prisma.SortOrder
 }
 
 export type WashTypeScalarRelationFilter = {
@@ -464,6 +492,7 @@ export type WashTypeCreateWithoutOrderWashTypesInput = {
   isActive?: boolean
   temperature: number
   dryingSpin: number
+  machineCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -475,6 +504,7 @@ export type WashTypeUncheckedCreateWithoutOrderWashTypesInput = {
   isActive?: boolean
   temperature: number
   dryingSpin: number
+  machineCount?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -501,6 +531,7 @@ export type WashTypeUpdateWithoutOrderWashTypesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temperature?: Prisma.IntFieldUpdateOperationsInput | number
   dryingSpin?: Prisma.IntFieldUpdateOperationsInput | number
+  machineCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -512,6 +543,7 @@ export type WashTypeUncheckedUpdateWithoutOrderWashTypesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   temperature?: Prisma.IntFieldUpdateOperationsInput | number
   dryingSpin?: Prisma.IntFieldUpdateOperationsInput | number
+  machineCount?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -554,6 +586,7 @@ export type WashTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   isActive?: boolean
   temperature?: boolean
   dryingSpin?: boolean
+  machineCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   orderWashTypes?: boolean | Prisma.WashType$orderWashTypesArgs<ExtArgs>
@@ -567,6 +600,7 @@ export type WashTypeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   isActive?: boolean
   temperature?: boolean
   dryingSpin?: boolean
+  machineCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["washType"]>
@@ -578,6 +612,7 @@ export type WashTypeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   isActive?: boolean
   temperature?: boolean
   dryingSpin?: boolean
+  machineCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["washType"]>
@@ -589,11 +624,12 @@ export type WashTypeSelectScalar = {
   isActive?: boolean
   temperature?: boolean
   dryingSpin?: boolean
+  machineCount?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type WashTypeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "isActive" | "temperature" | "dryingSpin" | "createdAt" | "updatedAt", ExtArgs["result"]["washType"]>
+export type WashTypeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "isActive" | "temperature" | "dryingSpin" | "machineCount" | "createdAt" | "updatedAt", ExtArgs["result"]["washType"]>
 export type WashTypeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orderWashTypes?: boolean | Prisma.WashType$orderWashTypesArgs<ExtArgs>
   _count?: boolean | Prisma.WashTypeCountOutputTypeDefaultArgs<ExtArgs>
@@ -613,6 +649,7 @@ export type $WashTypePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     isActive: boolean
     temperature: number
     dryingSpin: number
+    machineCount: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["washType"]>
@@ -1045,6 +1082,7 @@ export interface WashTypeFieldRefs {
   readonly isActive: Prisma.FieldRef<"WashType", 'Boolean'>
   readonly temperature: Prisma.FieldRef<"WashType", 'Int'>
   readonly dryingSpin: Prisma.FieldRef<"WashType", 'Int'>
+  readonly machineCount: Prisma.FieldRef<"WashType", 'Int'>
   readonly createdAt: Prisma.FieldRef<"WashType", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"WashType", 'DateTime'>
 }

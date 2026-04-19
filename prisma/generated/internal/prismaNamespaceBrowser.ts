@@ -102,6 +102,7 @@ export const WashTypeScalarFieldEnum = {
   isActive: 'isActive',
   temperature: 'temperature',
   dryingSpin: 'dryingSpin',
+  machineCount: 'machineCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

@@ -5,7 +5,8 @@ export default defineEventHandler(async (event) => {
   }
 
   const body = await readBody(event);
-  const { name, description, isActive, temperature, dryingSpin } = body;
+  const { name, description, isActive, temperature, dryingSpin, machineCount } =
+    body;
 
   try {
     const updated = await prisma.washType.update({
@@ -18,6 +19,8 @@ export default defineEventHandler(async (event) => {
         temperature:
           temperature !== undefined ? (temperature ?? null) : undefined,
         dryingSpin: dryingSpin !== undefined ? (dryingSpin ?? null) : undefined,
+        machineCount:
+          machineCount !== undefined ? (machineCount ?? null) : undefined,
       },
     });
     return updated;

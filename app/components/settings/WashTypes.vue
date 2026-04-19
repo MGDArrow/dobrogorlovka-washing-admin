@@ -18,6 +18,7 @@
             </span>
             <span v-if="type.temperature">🌡️ {{ type.temperature }}°C</span>
             <span v-if="type.dryingSpin">🌀 {{ type.dryingSpin }} об/мин</span>
+            <span v-if="type.dryingSpin">🧺 {{ type.machineCount }} шт</span>
           </div>
         </div>
         <div class="wash-types__actions">
@@ -59,6 +60,12 @@
         label="Обороты сушки (об/мин)"
         type="number"
       />
+      <UiInput
+        v-model.number="newMachineCount"
+        label="Количество машинок"
+        type="number"
+        min="1"
+      />
     </div>
     <UiButton :color="'var(--color-green)'" @click="createWashType">
       Добавить
@@ -77,6 +84,12 @@
           v-model.number="editForm.dryingSpin"
           label="Обороты сушки (об/мин)"
           type="number"
+        />
+        <UiInput
+          v-model.number="editForm.machineCount"
+          label="Количество машинок"
+          type="number"
+          min="1"
         />
       </div>
       <template #footer>
@@ -110,6 +123,7 @@
     isActive: boolean;
     temperature: number;
     dryingSpin: number;
+    machineCount: number;
   }
 
   const washTypes = ref<WashType[]>([]);
@@ -120,6 +134,7 @@
   const newDescription = ref('');
   const newTemperature = ref<number>(30);
   const newDryingSpin = ref<number>(800);
+  const newMachineCount = ref<number>(1);
 
   // Редактирование
   const isEditModalVisible = ref(false);
@@ -130,6 +145,7 @@
     isActive: true,
     temperature: 30,
     dryingSpin: 800,
+    machineCount: 1,
   });
 
   async function loadWashTypes() {
@@ -158,6 +174,7 @@
           isActive: true,
           temperature: newTemperature.value ?? null,
           dryingSpin: newDryingSpin.value ?? null,
+          machineCount: newMachineCount.value,
         },
       });
       newName.value = '';
@@ -203,6 +220,7 @@
           isActive: editForm.value.isActive,
           temperature: editForm.value.temperature ?? null,
           dryingSpin: editForm.value.dryingSpin ?? null,
+          machineCount: editForm.value.machineCount,
         },
       });
       isEditModalVisible.value = false;
