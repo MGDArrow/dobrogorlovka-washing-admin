@@ -1,17 +1,21 @@
 import { defineNitroPlugin } from 'nitropack/runtime/plugin';
-import { setupBotHandlers } from '../utils/bot-handlers';
 
 export default defineNitroPlugin(async () => {
   const bot = getTelegramBot();
-
   setupBotHandlers(bot);
 
-  bot
-    .start()
-    .then(() => console.log('✅ Bot started in polling mode'))
-    .catch((err) => console.error('Bot polling error:', err));
+  const webhookUrl = process.env.TELEGRAM_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.error('❌ TELEGRAM_WEBHOOK_URL не задан');
+    return;
+  }
 
-  process.on('beforeExit', () => {
-    bot.stop();
-  });
+  try {
+    await bot.api.setWebhook(webhookUrl, {
+      allowed_updates: ['message', 'callback_query'],
+    });
+    console.log(`✅ Webhook установлен: ${webhookUrl}`);
+  } catch (err) {
+    console.error('❌ Ошибка установки webhook:', err);
+  }
 });
