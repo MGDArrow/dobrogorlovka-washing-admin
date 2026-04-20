@@ -388,7 +388,8 @@ export const ModelName = {
   Holiday: 'Holiday',
   WashType: 'WashType',
   Order: 'Order',
-  OrderWashType: 'OrderWashType'
+  OrderWashType: 'OrderWashType',
+  TelegramUser: 'TelegramUser'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -404,7 +405,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "schedule" | "holiday" | "washType" | "order" | "orderWashType"
+    modelProps: "schedule" | "holiday" | "washType" | "order" | "orderWashType" | "telegramUser"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -778,6 +779,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TelegramUser: {
+      payload: Prisma.$TelegramUserPayload<ExtArgs>
+      fields: Prisma.TelegramUserFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TelegramUserFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TelegramUserFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload>
+        }
+        findFirst: {
+          args: Prisma.TelegramUserFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TelegramUserFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload>
+        }
+        findMany: {
+          args: Prisma.TelegramUserFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload>[]
+        }
+        create: {
+          args: Prisma.TelegramUserCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload>
+        }
+        createMany: {
+          args: Prisma.TelegramUserCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TelegramUserCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload>[]
+        }
+        delete: {
+          args: Prisma.TelegramUserDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload>
+        }
+        update: {
+          args: Prisma.TelegramUserUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload>
+        }
+        deleteMany: {
+          args: Prisma.TelegramUserDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TelegramUserUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TelegramUserUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload>[]
+        }
+        upsert: {
+          args: Prisma.TelegramUserUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TelegramUserPayload>
+        }
+        aggregate: {
+          args: Prisma.TelegramUserAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTelegramUser>
+        }
+        groupBy: {
+          args: Prisma.TelegramUserGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TelegramUserGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TelegramUserCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TelegramUserCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -874,6 +949,21 @@ export const OrderWashTypeScalarFieldEnum = {
 } as const
 
 export type OrderWashTypeScalarFieldEnum = (typeof OrderWashTypeScalarFieldEnum)[keyof typeof OrderWashTypeScalarFieldEnum]
+
+
+export const TelegramUserScalarFieldEnum = {
+  id: 'id',
+  telegramId: 'telegramId',
+  chatId: 'chatId',
+  firstName: 'firstName',
+  username: 'username',
+  isActivated: 'isActivated',
+  activatedAt: 'activatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TelegramUserScalarFieldEnum = (typeof TelegramUserScalarFieldEnum)[keyof typeof TelegramUserScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -982,6 +1072,20 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt'
+ */
+export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+/**
+ * Reference to a field of type 'BigInt[]'
+ */
+export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
     
 
 
@@ -1098,6 +1202,7 @@ export type GlobalOmitConfig = {
   washType?: Prisma.WashTypeOmit
   order?: Prisma.OrderOmit
   orderWashType?: Prisma.OrderWashTypeOmit
+  telegramUser?: Prisma.TelegramUserOmit
 }
 
 /* Types for Logging */

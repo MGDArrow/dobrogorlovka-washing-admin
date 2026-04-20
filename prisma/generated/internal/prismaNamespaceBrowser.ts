@@ -55,7 +55,8 @@ export const ModelName = {
   Holiday: 'Holiday',
   WashType: 'WashType',
   Order: 'Order',
-  OrderWashType: 'OrderWashType'
+  OrderWashType: 'OrderWashType',
+  TelegramUser: 'TelegramUser'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -131,6 +132,21 @@ export const OrderWashTypeScalarFieldEnum = {
 } as const
 
 export type OrderWashTypeScalarFieldEnum = (typeof OrderWashTypeScalarFieldEnum)[keyof typeof OrderWashTypeScalarFieldEnum]
+
+
+export const TelegramUserScalarFieldEnum = {
+  id: 'id',
+  telegramId: 'telegramId',
+  chatId: 'chatId',
+  firstName: 'firstName',
+  username: 'username',
+  isActivated: 'isActivated',
+  activatedAt: 'activatedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TelegramUserScalarFieldEnum = (typeof TelegramUserScalarFieldEnum)[keyof typeof TelegramUserScalarFieldEnum]
 
 
 export const SortOrder = {

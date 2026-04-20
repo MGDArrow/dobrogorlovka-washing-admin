@@ -4,6 +4,8 @@
     <SettingsTimetable />
     <h2>Типы стирок</h2>
     <SettingsWashTypes />
+    <h2>Телеграм рассылка</h2>
+    <SettingsTelegram />
   </section>
 </template>
 

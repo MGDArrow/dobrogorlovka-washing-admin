@@ -42,3 +42,8 @@ export type Order = Prisma.OrderModel
  * 
  */
 export type OrderWashType = Prisma.OrderWashTypeModel
+/**
+ * Model TelegramUser
+ * 
+ */
+export type TelegramUser = Prisma.TelegramUserModel

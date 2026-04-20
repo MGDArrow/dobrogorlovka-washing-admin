@@ -64,3 +64,17 @@ model OrderWashType {
   @@id([orderId, washTypeId])
   @@map("order_wash_types")
 }
+
+model TelegramUser {
+  id          Int       @id @default(autoincrement())
+  telegramId  BigInt    @unique
+  chatId      BigInt
+  firstName   String?   @map("first_name")
+  username    String?
+  isActivated Boolean   @default(false) @map("is_activated")
+  activatedAt DateTime? @map("activated_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  @@map("telegram_users")
+}
