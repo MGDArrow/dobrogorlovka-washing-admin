@@ -1,17 +1,25 @@
-import { defineNitroPlugin } from 'nitropack/runtime/plugin';
-import { setupBotHandlers } from '../utils/bot-handlers';
-
 export default defineNitroPlugin(async () => {
-  const bot = getTelegramBot();
+  console.log('[Bot plugin] Starting...');
+  try {
+    const bot = getTelegramBot();
+    console.log('[Bot plugin] Bot instance created');
 
-  setupBotHandlers(bot);
+    setupBotHandlers(bot);
+    console.log('[Bot plugin] Handlers set up');
 
-  bot
-    .start()
-    .then(() => console.log('✅ Bot started in polling mode'))
-    .catch((err) => console.error('Bot polling error:', err));
+    await bot.start(); // лучше await, чтобы поймать ошибку старта
+    console.log('✅ Bot started in polling mode');
+  } catch (err) {
+    console.error('[Bot plugin] Fatal error:', err);
+    // Не выбрасываем ошибку дальше, чтобы HTTP‑сервер всё же запустился
+  }
 
-  process.on('beforeExit', () => {
-    bot.stop();
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM received, stopping bot...');
+    bot?.stop();
+  });
+  process.on('SIGINT', () => {
+    console.log('SIGINT received, stopping bot...');
+    bot?.stop();
   });
 });
