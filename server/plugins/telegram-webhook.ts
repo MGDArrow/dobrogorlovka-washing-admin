@@ -1,6 +1,7 @@
 export default defineNitroPlugin(async () => {
   console.log('[Bot plugin] Starting...');
   try {
+    console.log('[Bot plugin] Token: ', process.env.TELEGRAM_BOT_TOKEN);
     const bot = getTelegramBot();
     console.log('[Bot plugin] Bot instance created');
 
