@@ -1,5 +1,6 @@
 import { Bot } from 'grammy';
 import { formatOrderBody } from './telegram';
+import prisma from '../utils/prisma';
 
 const SECRET_WORD = process.env.SECRET_WORD;
 
@@ -64,6 +65,7 @@ async function getOrdersForDate(dateStr: string, ctx: any) {
 
 export function setupBotHandlers(bot: Bot) {
   bot.on('message:text', async (ctx) => {
+    console.log(`New message: ${ctx.message.text}`);
     const userId = ctx.from?.id;
     const chatId = ctx.chat?.id;
     const text = ctx.message?.text?.trim();
