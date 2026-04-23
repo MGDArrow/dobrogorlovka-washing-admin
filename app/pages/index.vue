@@ -23,7 +23,7 @@
   definePageMeta({
     middleware: 'auth',
   });
-  
+
   import type { Dayjs } from 'dayjs';
 
   const dateForCalendar: Ref<Dayjs> = ref(initDaysj(new Date()));
@@ -66,6 +66,10 @@
       loading.value = false;
     }
   }
+
+  onMounted(async () => {
+    await getDatesTimesForWashing();
+  });
 </script>
 
 <style scoped lang="scss">
