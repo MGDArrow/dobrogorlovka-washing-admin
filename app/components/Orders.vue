@@ -20,7 +20,10 @@
           <strong>ФИО:</strong> {{ order.customerName }}
         </div>
         <div class="order__date">
-          <strong>Т.:</strong> {{ order.customerPhone }}
+          <strong>Т.: </strong>
+          <a :href="`tel:${formatPhoneForLink(order.customerPhone)}`">
+            {{ order.customerPhone }}
+          </a>
         </div>
         <div class="order__type">
           <strong>Стирки:</strong>
@@ -28,11 +31,27 @@
             <li v-for="type in getType(order.washTypes)">
               {{ type }}
             </li>
-            <!-- <li>{{ order.washTypes }}</li> -->
           </UiList>
         </div>
+        <UiButton
+          size="min"
+          color="var(--color-red)"
+          class="order__btn"
+          @click="openDeleteConfirm(order)"
+        >
+          Удалить
+        </UiButton>
       </div>
     </div>
+
+    <UiModalConfirm
+      v-model="isConfirmModalVisible"
+      title="Удаление заказа"
+      :message="`Вы действительно хотите удалить заказ №${orderToDelete?.orderNumber ?? ''}?`"
+      confirm-text="Удалить"
+      cancel-text="Отмена"
+      @confirm="deleteOrder"
+    />
   </div>
 </template>
 
@@ -44,6 +63,9 @@
   interface Props {
     orders: Array<Order>;
   }
+  const emit = defineEmits<{
+    (e: 'orderDeleted', orderId: number): void;
+  }>();
 
   const props = defineProps<Props>();
 
@@ -55,6 +77,30 @@
     return sorted;
   });
   const washTypes = ref<WashType[]>([]);
+
+  const isConfirmModalVisible = ref(false);
+  const orderToDelete = ref<Order | null>(null);
+
+  function openDeleteConfirm(order: Order) {
+    orderToDelete.value = order;
+    isConfirmModalVisible.value = true;
+  }
+
+  async function deleteOrder() {
+    if (!orderToDelete.value) return;
+
+    try {
+      await $fetch(`/api/orders/${orderToDelete.value.id}`, {
+        method: 'DELETE',
+      });
+      emit('orderDeleted', orderToDelete.value.id);
+    } catch (err) {
+      console.error('Ошибка при удалении заказа:', err);
+    } finally {
+      isConfirmModalVisible.value = false;
+      orderToDelete.value = null;
+    }
+  }
 
   function getType(colors: { washTypeId: number }[]) {
     const names: string[] = [];
@@ -78,6 +124,11 @@
     }
   }
 
+  function formatPhoneForLink(phone: string): string {
+    const cleaned = phone.replace(/[^\d+]/g, '');
+    return cleaned;
+  }
+
   onMounted(() => {
     loadWashTypes();
   });
@@ -85,21 +136,12 @@
 
 <style scoped lang="scss">
   .washin-orders {
-    // width: max-content;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items: stretch;
     gap: 10px;
     padding: 40px 0;
-    // &__wrapper {
-    //   min-width: 300px;
-    //   overflow-x: auto;
-    //   overflow-y: hidden;
-    //   padding: 0 20px;
-    //   margin: 0 auto;
-    //   max-width: max-content;
-    // }
     & .order {
       width: 300px;
       padding: 10px;
@@ -117,11 +159,17 @@
         font-weight: 600;
         color: v-bind(getRandomColor());
       }
+      &__btn {
+        align-self: end;
+      }
       & strong {
         font-weight: 600;
       }
       & p {
         text-align: center;
+      }
+      & a {
+        color: var(--color-black);
       }
     }
   }

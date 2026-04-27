@@ -2,7 +2,6 @@
   <div class="washing-calendar">
     <div
       class="washing-calendar__arrow-back"
-      :class="{ unactive: isCurrentWeek(modelValue) }"
       @click="modelValue = changeWeek(modelValue, -1)"
     >
       <UiIcon :name="'angle-left'" :size="'30px'" />

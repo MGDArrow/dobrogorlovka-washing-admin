@@ -13,7 +13,7 @@
         <div class="date__waiting">Нет заказов на эту неделю</div>
       </template>
       <template v-else>
-        <Orders :orders />
+        <Orders :orders @order-deleted="handleOrderDeleted" />
       </template>
     </ClientOnly>
   </section>
@@ -65,6 +65,10 @@
     } finally {
       loading.value = false;
     }
+  }
+
+  function handleOrderDeleted(deletedOrderId) {
+    orders.value = orders.value.filter((order) => order.id !== deletedOrderId);
   }
 
   onMounted(async () => {
