@@ -4,6 +4,7 @@
     <h1>Стирка Добра</h1>
     <nav>
       <NuxtLink to="/">Стирки</NuxtLink>
+      <NuxtLink to="/statistics">Статистика</NuxtLink>
       <NuxtLink to="/settings">Настройки</NuxtLink>
     </nav>
   </header>
