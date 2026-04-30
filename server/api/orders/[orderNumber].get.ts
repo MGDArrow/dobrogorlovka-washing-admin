@@ -1,7 +1,7 @@
 import { defineEventHandler, getRouterParam } from 'h3';
 
 export default defineEventHandler(async (event) => {
-  const rawOrderNumber = getRouterParam(event, 'orderNumber');
+  const rawOrderNumber = getRouterParam(event, 'id');
 
   if (!rawOrderNumber) {
     throw createError({
