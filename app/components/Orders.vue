@@ -448,10 +448,10 @@
   .schedule-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 0.8em;
     th,
     td {
-      border: 0.2px dashed lightgray;
+      border: 0.2px dashed grey;
       padding: 2px;
       vertical-align: top;
     }
@@ -473,14 +473,14 @@
       vertical-align: middle;
     }
     .order-cell {
-      min-width: 180px;
+      // min-width: 100px;
     }
     .order {
       width: auto;
       border-width: 2px;
       // font-size: 0.8em;
       &__number {
-        font-size: 40px;
+        font-size: 2em;
       }
     }
   }

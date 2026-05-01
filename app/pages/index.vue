@@ -1,7 +1,8 @@
 <template>
-  <section class="pages">
+  <section class="page__orders">
     <h2>Поиск заказа</h2>
     <OrderSearch />
+
     <h2>Список заказов</h2>
     <ClientOnly>
       <WashingCalendar v-model="dateForCalendar" />
@@ -77,7 +78,20 @@
 </script>
 
 <style scoped lang="scss">
-  .pages {
+  .page__orders {
     // width: 100%;
+    @media (min-width: 768px) and (max-width: 1599px) {
+      margin-left: 10px;
+      margin-right: 10px;
+      width: 100%;
+      font-size: 0.8em;
+      // background: red;
+    }
+    @media (min-width: 768px) and (max-width: 1199px) {
+      font-size: 0.8em;
+    }
+    @media (min-width: 768px) and (max-width: 999px) {
+      font-size: 0.6em;
+    }
   }
 </style>
