@@ -225,26 +225,7 @@
       .sort((a, b) => a.valueOf() - b.valueOf());
   }
 
-  // Определить, в каких колонках должен отображаться заказ (индексы в columns)
-  function getOrderColumnIndices(order: Order): number[] {
-    const indices: number[] = [];
-    for (let idx = 0; idx < columns.value.length; idx++) {
-      const col = columns.value[idx];
-      const hasType = order.washTypes.some(
-        (wt) => wt.washTypeId === col.washTypeId,
-      );
-      if (!hasType) continue;
-      const machineCount =
-        washTypes.value.find((wt) => wt.id === col.washTypeId)?.machineCount ??
-        1;
-      // Для типов с несколькими машинами заказ показываем только в первой колонке
-      if (machineCount > 1 && col.machineIndex !== 0) continue;
-      indices.push(idx);
-    }
-    return indices;
-  }
-
-  // Генерация строк таблицы с объединением ячеек
+  // Генерация строк таблицы с распределением по машинкам
   function getTableRows(ordersOfDate: Order[]) {
     if (columns.value.length === 0) return [];
 
@@ -257,63 +238,49 @@
       );
 
       const colCount = columns.value.length;
-      // Занятость колонок: null – свободно, иначе объект заказа
       const occupied: (Order | null)[] = Array(colCount).fill(null);
-      // Для каждого заказа решаем, будет он объединён или нет
-      const mergeInfo: { order: Order; start: number; end: number }[] = [];
 
-      // Сначала пробуем объединить заказы, которые занимают несколько колонок
-      const multiColumnOrders = timeOrders.filter((order) => {
-        const indices = getOrderColumnIndices(order);
-        return (
-          indices.length > 1 &&
-          indices.every((v, i, arr) => i === 0 || v === arr[i - 1] + 1)
-        );
-      });
+      // Сортируем заказы для предсказуемого распределения
+      const sortedOrders = [...timeOrders].sort((a, b) => a.id - b.id);
 
-      for (const order of multiColumnOrders) {
-        const indices = getOrderColumnIndices(order);
-        const allFree = indices.every((idx) => occupied[idx] === null);
-        if (allFree) {
-          const start = indices[0];
-          const end = indices[indices.length - 1];
-          mergeInfo.push({ order, start, end });
-          for (let i = start; i <= end; i++) {
-            occupied[i] = order;
+      for (const order of sortedOrders) {
+        // Уникальные типы стирки в заказе
+        const uniqueWashTypeIds = [
+          ...new Set(order.washTypes.map((wt) => wt.washTypeId)),
+        ];
+        for (const wtId of uniqueWashTypeIds) {
+          // Индексы всех колонок для данного типа стирки (все машинки)
+          const candidateIndices: number[] = [];
+          for (let idx = 0; idx < columns.value.length; idx++) {
+            const col = columns.value[idx];
+            if (col.washTypeId === wtId) {
+              candidateIndices.push(idx);
+            }
+          }
+          // Выбираем первую свободную колонку для этого типа
+          const freeIdx = candidateIndices.find(
+            (idx) => occupied[idx] === null,
+          );
+          if (freeIdx !== undefined) {
+            occupied[freeIdx] = order;
+          } else {
+            console.warn(
+              `Не найдено свободной колонки для типа ${wtId} в заказе ${order.id} на время ${time}`,
+            );
           }
         }
       }
 
-      // Оставшиеся заказы (или те, что не удалось объединить) размещаем в отдельных ячейках
-      const remainingOrders = timeOrders.filter((order) => {
-        const indices = getOrderColumnIndices(order);
-        // Если заказ уже занял место через объединение – пропускаем
-        if (mergeInfo.some((m) => m.order.id === order.id)) return false;
-        // Если хотя бы одна из его колонок уже занята – тоже размещаем отдельно
-        return true;
-      });
-
-      for (const order of remainingOrders) {
-        const indices = getOrderColumnIndices(order);
-        for (const idx of indices) {
-          if (occupied[idx] === null) {
-            occupied[idx] = order;
-          }
-        }
-      }
-
-      // Формируем ячейки строки, объединяя соседние одинаковые заказы
+      // Группируем подряд идущие колонки с одинаковым заказом
       const cells: { colspan: number; orders: Order[] }[] = [];
       let i = 0;
       while (i < colCount) {
         const currentOrder = occupied[i];
         if (currentOrder === null) {
-          // Пустая ячейка
           cells.push({ colspan: 1, orders: [] });
           i++;
           continue;
         }
-        // Определяем длину непрерывного блока с этим же заказом
         let span = 1;
         while (i + span < colCount && occupied[i + span] === currentOrder) {
           span++;
@@ -322,13 +289,11 @@
         i += span;
       }
 
-      // Форматируем время для отображения
       const timeStr = formatTime(time);
       rows.push({ time: timeStr, cells });
     }
     return rows;
   }
-
   // Сортировка заказов для мобильной версии
   function sortOrdersByTime(ordersOfDate: Order[]): Order[] {
     return [...ordersOfDate].sort(
