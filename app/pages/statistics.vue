@@ -28,6 +28,12 @@
         </div>
       </div>
 
+      <div class="export-button">
+        <UiButton @click="exportToPdf" :color="'var(--color-orange)'">
+          Экспорт PDF
+        </UiButton>
+      </div>
+
       <div v-if="loading" class="loading">
         <UiSpinner />
       </div>
@@ -97,6 +103,7 @@
   import type { Order, WashType } from '~~/prisma/generated/client';
   import type { Dayjs } from 'dayjs';
   import dayjs from 'dayjs';
+  import { useReportExport } from '~~/composables/useReportExport';
   definePageMeta({
     middleware: 'auth',
   });
@@ -310,9 +317,49 @@
     }
   }
 
+  const { generateReport } = useReportExport();
+  const currentSchedule = ref<any>(null);
+  async function fetchCurrentSchedule() {
+    try {
+      const data = await $fetch('/api/schedule');
+      currentSchedule.value = data;
+    } catch (err) {
+      console.error('Не удалось загрузить расписание', err);
+    }
+  }
+
+  async function exportToPdf() {
+    if (orders.value.length === 0) {
+      alert('Нет заказов за выбранный период. Невозможно сгенерировать отчёт.');
+      return;
+    }
+
+    let scheduleForWeek = null;
+    if (periodType.value === 'week') {
+      if (!currentSchedule.value) await fetchCurrentSchedule();
+      scheduleForWeek = currentSchedule.value;
+      if (!scheduleForWeek) {
+        alert('Не удалось получить расписание для недельного отчёта');
+        return;
+      }
+    }
+
+    const { start, end } = periodRange.value;
+
+    await generateReport(
+      periodType.value,
+      start,
+      end,
+      orders.value,
+      washTypes.value,
+      scheduleForWeek || undefined,
+    );
+  }
+
   onMounted(() => {
     loadWashTypes();
     fetchOrders();
+    fetchCurrentSchedule();
   });
 </script>
 
@@ -479,5 +526,11 @@
     .period-label {
       font-size: 1rem;
     }
+  }
+
+  .export-button {
+    display: flex;
+    justify-content: flex-end;
+    margin: var(--space-4) 0;
   }
 </style>

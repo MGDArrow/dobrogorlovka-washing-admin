@@ -47,3 +47,11 @@ export type TIcons =
   | 'equals'
   | 'first'
   | 'person';
+
+export interface ReportData {
+  title: string;
+  tableHeader: string[];
+  tableBody: (string | number)[][];
+  detailsHeader: string[];
+  detailsBody: (string | number)[][];
+}
