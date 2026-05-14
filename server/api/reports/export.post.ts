@@ -6,19 +6,15 @@ let browser: puppeteer.Browser | null = null;
 
 async function getBrowser() {
   if (!browser) {
-    // Определяем executablePath в зависимости от окружения
     let executablePath: string | undefined;
     const isDev = process.env.NODE_ENV === 'development';
 
     if (isDev) {
-      // Локальная разработка на Windows – используем Яндекс.Браузер
       executablePath =
         'C:/Program Files/Yandex/YandexBrowser/Application/browser.exe';
     } else if (process.env.PUPPETEER_EXECUTABLE_PATH) {
-      // Production (Docker) – путь из переменной окружения
       executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
     }
-    // Если ни одно условие не сработало – puppeteer сам найдёт Chromium (не рекомендуется)
 
     browser = await puppeteer.launch({
       headless: true,
@@ -30,8 +26,8 @@ async function getBrowser() {
 }
 
 export default defineEventHandler(async (event) => {
-  const { start, end } = await readBody(event);
-  if (!start || !end) {
+  const { start, end, periodType } = await readBody(event);
+  if (!start || !end || !periodType) {
     throw createError({ statusCode: 400, message: 'Не указан период' });
   }
 
@@ -39,7 +35,7 @@ export default defineEventHandler(async (event) => {
   const reportUrl = new URL('/reports', origin);
   reportUrl.searchParams.set('start', start);
   reportUrl.searchParams.set('end', end);
-  reportUrl.searchParams.set('periodType', 'custom');
+  reportUrl.searchParams.set('periodType', periodType);
 
   const browserInstance = await getBrowser();
   const page = await browserInstance.newPage();
@@ -65,6 +61,6 @@ export default defineEventHandler(async (event) => {
     );
     return pdfBuffer;
   } finally {
-    await page.close(); // закрываем страницу даже при ошибке
+    await page.close();
   }
 });

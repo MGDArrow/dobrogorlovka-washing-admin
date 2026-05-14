@@ -32,8 +32,22 @@
       <div class="chart-line">
         <LineChart :data="dailyChartData" :options="chartOptionsLine" />
       </div>
-      <div class="page-number">1/{{ ordersTable.length + 1 }}</div>
+      <div class="page-number">1/{{ ordersTable.length + 2 }}</div>
     </div>
+    <div class="report-page" v-if="table">
+      <table>
+        <tr>
+          <th v-for="t in table.header">
+            {{ t }}
+          </th>
+        </tr>
+        <tr v-for="row in table.body">
+          <td v-for="cell in row">{{ cell }}</td>
+        </tr>
+      </table>
+      <div class="page-number">2/{{ ordersTable.length + 2 }}</div>
+    </div>
+
     <div class="report-page" v-for="(list, i) in ordersTable" :key="i">
       <div class="orders-list">
         <div class="orders-column" v-for="(column, j) in list" :key="j">
@@ -64,7 +78,7 @@
           </div>
         </div>
       </div>
-      <div class="page-number">{{ i + 2 }}/{{ ordersTable.length + 1 }}</div>
+      <div class="page-number">{{ i + 3 }}/{{ ordersTable.length + 2 }}</div>
     </div>
   </div>
 </template>
@@ -82,6 +96,7 @@
     LinearScale,
     ArcElement,
   } from 'chart.js';
+  import { useReportExport } from '~/components/composables/useReportExport';
 
   definePageMeta({
     layout: 'print',
@@ -102,8 +117,8 @@
   const startStr = route.query.start as string;
   const endStr = route.query.end as string;
 
-  const startDate = dayjs(startStr);
-  const endDate = dayjs(endStr);
+  const startDate = dayjs(startStr).add(3, 'hour');
+  const endDate = dayjs(endStr).add(3, 'hour');
 
   const orders = ref<Order[]>([]);
   const washTypes = ref<WashType[]>([]);
@@ -288,9 +303,28 @@
     }
   }
 
+  const { generateReport } = useReportExport();
+  const table = ref<any>(null);
+
+  async function exportToPdf() {
+    if (orders.value.length === 0) {
+      alert('Нет заказов за выбранный период. Невозможно сгенерировать отчёт.');
+      return;
+    }
+
+    table.value = await generateReport(
+      periodType,
+      startDate,
+      endDate,
+      orders.value,
+      washTypes.value,
+    );
+  }
+
   onMounted(async () => {
     await loadWashTypes();
     await fetchOrders();
+    await exportToPdf();
 
     await nextTick();
     setTimeout(() => {
@@ -403,6 +437,41 @@
     & .washes {
       font-size: 0.7em;
       width: 4.5cm;
+    }
+  }
+
+  table {
+    width: 25.7cm;
+    border-collapse: collapse;
+    border: 2px solid black;
+    text-align: center;
+    & th,
+    & td {
+      vertical-align: middle;
+      padding: 0.1cm;
+      border: 1px solid black;
+    }
+    & tr:last-child,
+    & td:last-child {
+      background: lightcyan;
+    }
+    & td:first-child {
+      font-weight: 600;
+      background: lightskyblue;
+      text-align: right;
+    }
+    & tr:first-child {
+      font-weight: 600;
+      & th {
+        writing-mode: sideways-lr;
+        padding: 0.5cm 0.1cm;
+        background: lightseagreen;
+      }
+      & th:last-child,
+      & th:first-child {
+        padding: 0.1cm;
+        writing-mode: unset;
+      }
     }
   }
 </style>

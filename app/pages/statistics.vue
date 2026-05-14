@@ -28,7 +28,7 @@
         </div>
       </div>
 
-      <div class="export-button">
+      <div class="export-button" v-if="stats.totalOrders !== 0">
         <div v-if="exportLoading" class="spinner-wrapper">
           <UiSpinner />
         </div>
@@ -334,6 +334,7 @@
         body: {
           start: start.toISOString(),
           end: end.toISOString(),
+          periodType: periodType.value,
         },
         responseType: 'blob',
       });
