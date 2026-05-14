@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.6.0",
+    "@types/puppeteer": "^5.4.7",
     "@vite-pwa/nuxt": "^1.1.1",
     "chart.js": "^4.5.1",
     "dayjs": "^1.11.20",
@@ -19,6 +20,7 @@
     "nuxt": "^4.4.2",
     "pdfmake": "^0.3.8",
     "pg": "^8.20.0",
+    "puppeteer": "^24.43.1",
     "vue": "^3.5.31",
     "vue-chartjs": "^5.3.3",
     "vue-router": "^5.0.4"

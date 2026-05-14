@@ -14,6 +14,17 @@ RUN npm run build
 # Финальный образ
 FROM node:24-alpine
 
+# Устанавливаем Chromium и зависимости для работы без GUI
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont \
+    && rm -rf /var/cache/apk/*
+
+
 WORKDIR /app
 
 # Копируем только необходимые файлы из стадии builder
@@ -28,3 +39,5 @@ ENV NUXT_PORT=3000
 EXPOSE 3000
 
 CMD ["node", ".output/server/index.mjs"]
+
+

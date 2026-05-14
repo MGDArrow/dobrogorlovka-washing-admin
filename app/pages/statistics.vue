@@ -29,7 +29,15 @@
       </div>
 
       <div class="export-button">
-        <UiButton @click="goToReportPage" :color="'var(--color-orange)'">
+        <div v-if="exportLoading" class="spinner-wrapper">
+          <UiSpinner />
+        </div>
+        <UiButton
+          v-else
+          @click="goToReportPage"
+          :color="'var(--color-orange)'"
+          :disabled="exportLoading"
+        >
           Экспорт PDF
         </UiButton>
       </div>
@@ -316,16 +324,34 @@
     }
   }
 
-  function goToReportPage() {
+  const exportLoading = ref(false);
+  async function goToReportPage() {
     const { start, end } = periodRange.value;
-    navigateTo({
-      path: '/reports',
-      query: {
-        periodType: periodType.value,
-        start: start.toISOString(),
-        end: end.toISOString(),
-      },
-    });
+    exportLoading.value = true;
+    try {
+      const response = await $fetch('/api/reports/export', {
+        method: 'POST',
+        body: {
+          start: start.toISOString(),
+          end: end.toISOString(),
+        },
+        responseType: 'blob',
+      });
+
+      const url = URL.createObjectURL(response);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `report_${start.format('YYYY-MM-DD')}_${end.format('YYYY-MM-DD')}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Ошибка при экспорте PDF:', err);
+      alert('Не удалось сформировать отчёт');
+    } finally {
+      exportLoading.value = false;
+    }
   }
 
   onMounted(() => {
@@ -501,7 +527,6 @@
 
   .export-button {
     display: flex;
-    justify-content: flex-end;
-    margin: var(--space-4) 0;
+    justify-content: center;
   }
 </style>

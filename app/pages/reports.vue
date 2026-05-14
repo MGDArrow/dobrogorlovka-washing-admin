@@ -32,6 +32,7 @@
       <div class="chart-line">
         <LineChart :data="dailyChartData" :options="chartOptionsLine" />
       </div>
+      <div class="page-number">1/{{ ordersTable.length + 1 }}</div>
     </div>
     <div class="report-page" v-for="(list, i) in ordersTable" :key="i">
       <div class="orders-list">
@@ -63,6 +64,7 @@
           </div>
         </div>
       </div>
+      <div class="page-number">{{ i + 2 }}/{{ ordersTable.length + 1 }}</div>
     </div>
   </div>
 </template>
@@ -82,7 +84,6 @@
   } from 'chart.js';
 
   definePageMeta({
-    middleware: 'auth',
     layout: 'print',
   });
 
@@ -248,6 +249,7 @@
     borderColor: '#111111',
     borderWidth: 1,
     radius: '80%',
+    animations: false,
   };
 
   const chartOptionsLine = {
@@ -257,6 +259,7 @@
     },
     borderColor: '#111111',
     borderWidth: 3,
+    animations: false,
   };
 
   // ---- Период ----
@@ -288,6 +291,13 @@
   onMounted(async () => {
     await loadWashTypes();
     await fetchOrders();
+
+    await nextTick();
+    setTimeout(() => {
+      if (typeof window !== 'undefined') {
+        (window as any).reportReady = true;
+      }
+    }, 300);
   });
 </script>
 
@@ -297,6 +307,14 @@
     overflow: auto;
     padding: 2cm 0;
     font-size: 14pt;
+    position: relative;
+  }
+  .page-number {
+    position: absolute;
+    left: 50%;
+    bottom: 1cm;
+    font-size: 0.7em;
+    transform: translate(-50%, -50%);
   }
 
   h1 {
