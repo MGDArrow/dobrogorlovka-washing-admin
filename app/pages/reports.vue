@@ -96,7 +96,7 @@
     LinearScale,
     ArcElement,
   } from 'chart.js';
-  import { useReportExport } from '~/components/composables/useReportExport';
+  import { useReportExport } from '~/composables/useReportExport';
 
   definePageMeta({
     layout: 'print',

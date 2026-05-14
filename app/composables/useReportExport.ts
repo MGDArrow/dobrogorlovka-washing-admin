@@ -36,7 +36,7 @@ export function useReportExport() {
     // 1. Преобразуем schedule в карту: дата -> массив времен (HH:mm)
     const slotTimesByDate = new Map<string, string[]>();
     for (const iso of schedule) {
-      const dt = dayjs(iso);
+      const dt = dayjs(iso).subtract(1, 'day');
       if (dt.isBefore(startDate, 'day') || dt.isAfter(endDate, 'day')) continue;
       const dateKey = dt.format('YYYY-MM-DD');
       const time = dt.format('HH:mm');
@@ -45,22 +45,25 @@ export function useReportExport() {
       }
       slotTimesByDate.get(dateKey)!.push(time);
     }
+    console.log(slotTimesByDate);
 
     // 2. Строим все слоты (день + время) на основе дней недели и времен из карты
     const allSlots: { dayDate: dayjs.Dayjs; time: string }[] = [];
     for (const day of daysInWeek) {
-      const dateKey = day.format('YYYY-MM-DD');
+      const dateKey = day.subtract(1, 'day').format('YYYY-MM-DD');
       const times = slotTimesByDate.get(dateKey) || [];
       times.sort();
       for (const time of times) {
-        allSlots.push({ dayDate: day, time });
+        allSlots.push({ dayDate: day.subtract(1, 'day'), time });
       }
     }
 
+    console.log(allSlots);
     // 3. Группировка заказов по слотам
     const slotMap = new Map<string, Map<number, number>>();
     for (const order of orders) {
-      const orderDate = dayjs(order.scheduledAt);
+      const orderDate = dayjs(order.scheduledAt).add(3, 'hour');
+      console.log(orderDate);
       const timeKey = orderDate.format('HH:mm');
       const matchingSlot = allSlots.find(
         (slot) =>
@@ -301,7 +304,13 @@ export function useReportExport() {
     let mainTable: { header: string[]; body: (string | number)[][] };
 
     if (periodType === 'week') {
-      const schedule = await $fetch('/api/reports');
+      const schedule = await $fetch('/api/reports', {
+        method: 'GET',
+        query: {
+          first: start.toISOString(),
+          last: end.toISOString(),
+        },
+      });
       if (!schedule)
         throw new Error('Для недельного отчёта необходимо расписание');
       mainTable = buildWeekData(orders, washTypes, schedule, start, end);
