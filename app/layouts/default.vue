@@ -4,6 +4,8 @@
     <main>
       <slot />
     </main>
+
+    <Welcome />
   </div>
 </template>
 
