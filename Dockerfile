@@ -33,6 +33,7 @@ COPY --from=builder /app/.output ./.output
 # COPY --from=builder /app/package.json ./package.json
 
 # Указываем переменные окружения
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
 
