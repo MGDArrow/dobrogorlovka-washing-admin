@@ -36,7 +36,7 @@ export function useReportExport() {
     // 1. Преобразуем schedule в карту: дата -> массив времен (HH:mm)
     const slotTimesByDate = new Map<string, string[]>();
     for (const iso of schedule) {
-      const dt = dayjs(iso).subtract(1, 'day');
+      const dt = dayjs(iso);
       if (dt.isBefore(startDate, 'day') || dt.isAfter(endDate, 'day')) continue;
       const dateKey = dt.format('YYYY-MM-DD');
       const time = dt.format('HH:mm');
@@ -50,11 +50,11 @@ export function useReportExport() {
     // 2. Строим все слоты (день + время) на основе дней недели и времен из карты
     const allSlots: { dayDate: dayjs.Dayjs; time: string }[] = [];
     for (const day of daysInWeek) {
-      const dateKey = day.subtract(1, 'day').format('YYYY-MM-DD');
+      const dateKey = day.format('YYYY-MM-DD');
       const times = slotTimesByDate.get(dateKey) || [];
       times.sort();
       for (const time of times) {
-        allSlots.push({ dayDate: day.subtract(1, 'day'), time });
+        allSlots.push({ dayDate: day, time });
       }
     }
 
